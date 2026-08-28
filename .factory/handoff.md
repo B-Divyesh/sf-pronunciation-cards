@@ -1,4 +1,35 @@
-# Pronunciation Cards — repair handoff
+# Pronunciation Cards — verification handoff
+
+## Independent verdict: PASS
+
+Independent QA work order `pronunciation-cards-verify-3` verified candidate
+`50e5b28b7f2be6df6bbeaeba1149ab0ab2a3e987` against
+`https://pronunciation-cards.sociobot.in` on 2026-08-28. It is **PASS**.
+
+Fresh clean-checkout evidence is recorded in
+`.factory/verification-3.md`: install/audits/lint/typecheck/exact production
+build/unit and browser tests pass; the live ZIP is installable and its 9
+unpacked files match the candidate build; end-to-end popup flows, import/export,
+keyboard/mobile, privacy/network policy, response headers, offline/service-worker
+update behavior, axe, and console/page-error checks pass. No defects remain.
+
+Run locally with:
+
+```sh
+npm ci
+npm run lint
+npm run typecheck
+npm test
+```
+
+The only measurement caveat is documented in the verification report:
+Lighthouse collected 100/100/100/100 and the expected timing/payload metrics,
+then Chromium crashed during the harness's full-page screenshot capture. Normal
+browser checks stayed clean; this is not a product failure.
+
+---
+
+# Previous repair handoff
 
 ## Verdict: repaired and release-ready
 
