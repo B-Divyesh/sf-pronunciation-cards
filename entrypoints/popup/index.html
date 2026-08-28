@@ -17,10 +17,12 @@
       <span class="offline-badge" title="No internet connection required">Offline</span>
     </header>
 
-    <nav class="tabs" aria-label="Pronunciation Cards sections" role="tablist">
-      <button id="editor-tab" role="tab" aria-selected="true" aria-controls="editor-panel">New card</button>
-      <button id="cards-tab" role="tab" aria-selected="false" aria-controls="cards-panel" tabindex="-1">Cards <span id="card-count">0</span></button>
-      <button id="portable-tab" role="tab" aria-selected="false" aria-controls="portable-panel" tabindex="-1">Portable</button>
+    <nav aria-label="Pronunciation Cards sections">
+      <div class="tabs" role="tablist" aria-label="Card views">
+        <button id="editor-tab" role="tab" aria-selected="true" aria-controls="editor-panel">New card</button>
+        <button id="cards-tab" role="tab" aria-selected="false" aria-controls="cards-panel" tabindex="-1">Cards <span id="card-count">0</span></button>
+        <button id="portable-tab" role="tab" aria-selected="false" aria-controls="portable-panel" tabindex="-1">Portable</button>
+      </div>
     </nav>
 
     <main id="main">

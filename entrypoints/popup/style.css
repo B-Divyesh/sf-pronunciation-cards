@@ -46,6 +46,9 @@ button { min-height: 44px; }
   z-index: 10;
   top: 8px;
   left: 8px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 8px 12px;
   color: var(--ink);
   background: var(--lantern);
@@ -111,6 +114,19 @@ main { padding: 20px 16px 28px; }
 }
 .field textarea { resize: vertical; }
 .field input::placeholder { color: #9aaeb9; }
+.field input[type="file"] { width: 100%; min-height: 44px; }
+.field input[type="file"]::file-selector-button {
+  min-height: 44px;
+  margin-right: 10px;
+  padding: 8px 12px;
+  border: 1px solid #648299;
+  border-radius: 10px;
+  color: var(--paper);
+  background: var(--night-high);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
 .hint { margin-top: 5px; color: var(--mist); font-size: 12px; }
 .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 
@@ -178,7 +194,7 @@ code { font-family: ui-monospace, monospace; color: var(--electric); }
 .status[data-kind="success"] { color: #6ee7a5; }
 .undo { position: sticky; z-index: 3; bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 12px 8px; padding: 10px 12px; border: 1px solid var(--electric); border-radius: 10px; color: var(--paper); background: var(--night-high); }
 .undo[hidden] { display: none; }
-.undo button { min-height: 36px; padding-block: 5px; color: var(--ink); background: var(--electric); }
+.undo button { min-height: 44px; color: var(--ink); background: var(--electric); }
 
 dialog { width: min(360px, calc(100% - 32px)); padding: 20px; border: 1px solid var(--orchid); border-radius: 14px; color: var(--paper); background: var(--night); }
 dialog::backdrop { background: rgb(2 8 15 / .82); }

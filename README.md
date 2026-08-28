@@ -57,8 +57,10 @@ npm run build        # exact production command
 - the downloadable build to
   `dist/site/downloads/pronunciation-cards-chrome.zip`.
 
-Deploy `dist/site/` as the static root. The site includes privacy and terms
-pages, a service worker for its visited shell, and immutable asset-cache rules.
+Deploy `dist/site/` as the static root. `npm run build:site` always repackages
+the extension after Vite clears the site output, so the linked ZIP survives a
+site-only rebuild. The service worker uses fresh network responses for pages
+and downloads, with an offline fallback for previously visited pages.
 
 ## Project layout
 

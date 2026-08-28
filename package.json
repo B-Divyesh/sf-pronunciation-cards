@@ -9,24 +9,30 @@
     "assets": "node scripts/build-assets.mjs",
     "clean": "node scripts/clean.mjs",
     "build:extension": "wxt build",
-    "build:site": "vite build --config vite.site.config.ts",
+    "build:site": "vite build --config vite.site.config.ts && npm run package",
     "package": "node scripts/package-extension.mjs",
-    "build": "npm run clean && npm run assets && npm run build:extension && npm run build:site && npm run package",
+    "build": "npm run clean && npm run assets && npm run build:extension && npm run build:site",
     "preview:site": "vite preview --config vite.site.config.ts",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit && npm run build && npm run test:e2e",
-    "typecheck": "wxt prepare && tsc --noEmit"
+    "test:release": "node scripts/verify-release.mjs",
+    "test": "npm run test:unit && npm run build && npm run build:site && npm run test:release && npm run test:e2e",
+    "typecheck": "wxt prepare && tsc --noEmit",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
+    "@eslint/js": "10.0.1",
     "@playwright/test": "1.58.2",
+    "eslint": "10.9.1",
     "fflate": "0.8.2",
+    "globals": "17.11.0",
     "playwright-core": "1.58.2",
-    "sharp": "0.34.3",
+    "sharp": "0.35.4",
     "typescript": "5.9.2",
-    "vite": "7.1.3",
-    "vitest": "3.2.4",
-    "wxt": "0.20.7"
+    "typescript-eslint": "8.68.0",
+    "vite": "7.3.6",
+    "vitest": "3.2.7",
+    "wxt": "0.21.4"
   }
 }
