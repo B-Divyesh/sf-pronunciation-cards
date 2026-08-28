@@ -57,22 +57,48 @@ offline reload, visible offline state, stale-cache update behavior, AVIF MIME,
 download signature, and reduced motion.
 
 Local Lighthouse 13.0.1 mobile: **100 performance / 100 accessibility / 100
-best practices / 100 SEO**; FCP 1.0 s, LCP 1.4 s, TBT 0 ms, CLS 0, speed index
-1.0 s. Payloads remain within contract: initial site JS 1,662 bytes, CSS 10,726
+best practices / 100 SEO**; FCP 0.9 s, LCP 1.3 s, TBT 0 ms, CLS 0, speed index
+0.9 s. Payloads remain within contract: initial site JS 1,662 bytes, CSS 10,726
 bytes, mobile AVIF 36,708 bytes, no runtime fonts, and unpacked extension
 32,066 bytes.
 
 Verified local release identity:
 
-- ZIP SHA-256: `879dd1828bf1306aa440955e1fe78979f9d829473a8d4756e90314a1f44e0f4b`
+- ZIP SHA-256: `5706572e66209789494a51343471216468383ecea43ec6601582212b62ef9eb4`
 - home SHA-256: `29b3e434ac368bdc64e998d2f97dbc76a3c1b2bbad4ae1d6a3ed0167f0f672f3`
 - service worker SHA-256: `1856cb1e507bc7976267dc9350b97d27e527b7a215cf006bbf6efeacf5c20936`
 
 ## Live deployment evidence
 
-Pending deployment of `dist/site/` with the work order's static deployment
-configuration. This section will be updated after response-policy, identity,
-fresh-profile, and already-controlled-profile checks complete.
+Deployed the exact verified `dist/site/` through the work order's static Azure
+Static Web Apps configuration on 2026-08-28. Deployment
+`f3f445b6-723d-42c8-ba2a-b0b1a9e04d39` completed successfully at both the
+Azure host and `https://pronunciation-cards.sociobot.in`.
+
+- Home, service worker, legal pages, scripts, styles, mark, all responsive hero
+  formats, robots, sitemap, and the release ZIP (13 public files total) are
+  byte-for-byte identical to the final build. Live home, service-worker, and
+  ZIP SHA-256 values match those recorded above.
+- The ZIP now returns `200`, `Content-Type: application/zip`, and
+  `Cache-Control: no-cache, must-revalidate`. AVIF returns `image/avif` and
+  stable assets use `must-revalidate` rather than `immutable`.
+- `/opt/fleet/lib/verify-url.sh` passed in 716 ms with the expected title,
+  language, one h1, main landmark, image alternatives, labelled controls, and
+  zero console errors. Live axe scans found zero violations on home, privacy,
+  terms, and the installed extension popup.
+- Desktop and 390x844 Chromium checks passed with no horizontal overflow. The
+  repaired brand/legal targets measured at least 44x44 px, the keyboard skip
+  link moved focus to main, reduced motion and extension tab-arrow behavior are
+  covered by the clean regression run, and runtime requests stayed first-party.
+- A fresh service-worker client reloaded offline. An already-controlled client
+  with sentinel HTML and ZIP entries in its current cache received the live
+  page and package instead; the package began with `PK` and was 15,453 bytes.
+- The downloaded ZIP was expanded in a clean directory, matched all nine built
+  extension files, loaded as an MV3 extension, saved a real card to local
+  storage, and produced no console errors.
+- Live Lighthouse 13.0.1 mobile: **100 performance / 100 accessibility / 100
+  best practices / 100 SEO**; FCP 0.9 s, LCP 1.1 s, TBT 30 ms, CLS 0, speed
+  index 0.9 s.
 
 ## Known limits
 
