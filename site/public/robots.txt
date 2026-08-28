@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pronunciation-cards.sociobot.in/sitemap.xml

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="A local browser extension for predictable pronunciations of technical terms and names." />
+    <link rel="icon" href="/assets/product-mark.svg" type="image/svg+xml" />
+    <title>Pronunciation Cards — predictable words, spoken locally</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div id="offline-notice" class="offline-notice" role="status" hidden>You’re offline. The guide still works; reconnect to download the extension.</div>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Pronunciation Cards home">
+        <img src="/assets/product-mark.svg" width="40" height="40" alt="" />
+        <span>Pronunciation Cards</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#limits">Compatibility</a>
+        <a class="nav-download" href="/downloads/pronunciation-cards-chrome.zip" download>Download</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">●</span> Your words. Your voice rules.</p>
+          <h1 id="hero-title">Make technical words sound familiar.</h1>
+          <p class="lede">Save the pronunciation once. Preview it with your browser’s installed voices, read selected text with the correction applied, or carry it elsewhere as SSML.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="/downloads/pronunciation-cards-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
+            <a class="button secondary" href="#install">Installation guide</a>
+          </div>
+          <p class="microcopy">Free · no account · no cloud TTS · Chrome-compatible MV3</p>
+        </div>
+        <figure class="hero-art">
+          <picture>
+            <source srcset="/assets/pronunciation-cards-hero-960.avif" type="image/avif" />
+            <source srcset="/assets/pronunciation-cards-hero-960.webp 960w, /assets/pronunciation-cards-hero-1440.webp 1440w" type="image/webp" sizes="(max-width: 760px) 92vw, 48vw" />
+            <img src="/assets/pronunciation-cards-hero-960.webp" width="960" height="640" alt="Blank cream index cards lit by amber and cyan lamps on a rain-speckled night-market counter" decoding="async" fetchpriority="high" />
+          </picture>
+          <figcaption>Portable pronunciation metadata, held like a card you can take anywhere.</figcaption>
+        </figure>
+      </section>
+
+      <ul class="trust-strip" aria-label="Product principles">
+        <li><strong>Local first</strong><span>Glossary stays in your browser</span></li>
+        <li><strong>Plain JSON</strong><span>Export, inspect, and share</span></li>
+        <li><strong>Documented speech</strong><span>Uses browser Web Speech APIs</span></li>
+      </ul>
+
+      <section id="how-it-works" class="section workflow" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <p class="eyebrow">One correction, three useful surfaces</p>
+          <h2 id="workflow-title">From unfamiliar term to reliable reading</h2>
+          <p>Pronunciation Cards does not guess. You stay in control of what the word should sound like.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="step-number">01</span><h3>Select the term</h3><p>Highlight a name or acronym on a normal web page, then open the extension.</p></li>
+          <li><span class="step-number">02</span><h3>Write the sound</h3><p>Add a phonetic alias, optional IPA, and preview it with an installed voice.</p></li>
+          <li><span class="step-number">03</span><h3>Use the card</h3><p>Read a page selection, copy SSML, or export the glossary as JSON.</p></li>
+        </ol>
+      </section>
+
+      <section class="section demo-section" aria-labelledby="demo-title">
+        <div class="demo-copy">
+          <p class="eyebrow">Try the idea</p>
+          <h2 id="demo-title">A card is a small, explicit rule.</h2>
+          <p>This preview uses your browser’s local speech voices. It does not save the sample or send it anywhere.</p>
+          <div class="sample-line"><span>Written</span><strong>Kubernetes</strong></div>
+          <div class="sample-line"><span>Say it like</span><strong class="electric">cue-burr-NET-eez</strong></div>
+          <button id="site-preview" class="button primary" type="button">Hear sample</button>
+          <p id="demo-status" class="demo-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="card-stack" aria-label="Example pronunciation card">
+          <article class="example-card back-card" aria-hidden="true"></article>
+          <article class="example-card front-card">
+            <span class="card-kicker">Pronunciation card · 001</span>
+            <h3>Kubernetes</h3>
+            <p class="alias">cue-burr-NET-eez</p>
+            <p class="ipa">/ˌkuːbərˈnɛtiːz/</p>
+            <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="limits" class="section limits" aria-labelledby="limits-title">
+        <div>
+          <p class="eyebrow">Honest compatibility</p>
+          <h2 id="limits-title">It helps where browsers give it a voice.</h2>
+        </div>
+        <div class="limit-grid">
+          <div><span class="signal yes" aria-hidden="true">✓</span><h3>Extension preview</h3><p>Hear the alias with voices already installed in your browser or operating system.</p></div>
+          <div><span class="signal yes" aria-hidden="true">✓</span><h3>Selected web text</h3><p>Use the context menu or popup to read a selection with matching aliases applied.</p></div>
+          <div><span class="signal maybe" aria-hidden="true">↗</span><h3>SSML handoff</h3><p>Copy standards-based SSML. Support for IPA and alias markup varies across reading tools.</p></div>
+          <div><span class="signal no" aria-hidden="true">×</span><h3>Screen-reader dictionaries</h3><p>The extension cannot override a screen reader’s own speech engine or protected browser pages.</p></div>
+        </div>
+      </section>
+
+      <section id="install" class="section install" aria-labelledby="install-title">
+        <div class="section-heading">
+          <p class="eyebrow">Install the unpacked extension</p>
+          <h2 id="install-title">Ready in about two minutes</h2>
+          <p>Until a store listing is available, install the reviewed build directly.</p>
+        </div>
+        <ol>
+          <li><span>1</span><div><strong>Download and unzip</strong><p>Save the extension ZIP and expand it to a permanent folder.</p></div></li>
+          <li><span>2</span><div><strong>Open extensions</strong><p>Visit <code>chrome://extensions</code> in a Chromium-based browser and turn on Developer mode.</p></div></li>
+          <li><span>3</span><div><strong>Load the folder</strong><p>Choose “Load unpacked,” select the expanded folder, then pin Pronunciation Cards.</p></div></li>
+        </ol>
+        <a class="button primary" href="/downloads/pronunciation-cards-chrome.zip" download>Download the ZIP</a>
+      </section>
+
+      <section class="section faq" aria-labelledby="faq-title">
+        <div><p class="eyebrow">Details that matter</p><h2 id="faq-title">Questions before you install</h2></div>
+        <div>
+          <details><summary>Does it send the text I select anywhere?</summary><p>No. Selection processing, glossary matching, and speech preview happen through browser APIs on your device.</p></details>
+          <details><summary>Will it fix every screen reader?</summary><p>No. Browser extensions cannot reliably change the pronunciation dictionary inside independent screen readers. Use the generated SSML in tools that support it.</p></details>
+          <details><summary>Can a team share a glossary?</summary><p>Yes. Export the versioned JSON file and send it through your usual approved channel. Import can merge by term or replace the current glossary.</p></details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="/"><img src="/assets/product-mark.svg" width="32" height="32" alt="" /><span>Pronunciation Cards</span></a>
+      <p>Accessibility metadata that travels. Generated hero artwork is original to this project.</p>
+      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-pronunciation-cards">Source</a></nav>
+    </footer>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>

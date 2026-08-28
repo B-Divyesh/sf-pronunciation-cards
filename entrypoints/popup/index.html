@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <title>Pronunciation Cards</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to editor</a>
+    <header class="topbar">
+      <img src="/icon/32.png" width="32" height="32" alt="" />
+      <div>
+        <p class="eyebrow">Local glossary</p>
+        <h1>Pronunciation Cards</h1>
+      </div>
+      <span class="offline-badge" title="No internet connection required">Offline</span>
+    </header>
+
+    <nav class="tabs" aria-label="Pronunciation Cards sections" role="tablist">
+      <button id="editor-tab" role="tab" aria-selected="true" aria-controls="editor-panel">New card</button>
+      <button id="cards-tab" role="tab" aria-selected="false" aria-controls="cards-panel" tabindex="-1">Cards <span id="card-count">0</span></button>
+      <button id="portable-tab" role="tab" aria-selected="false" aria-controls="portable-panel" tabindex="-1">Portable</button>
+    </nav>
+
+    <main id="main">
+      <section id="editor-panel" role="tabpanel" aria-labelledby="editor-tab">
+        <p id="selection-note" class="selection-note" hidden></p>
+        <form id="card-form" novalidate>
+          <input id="card-id" type="hidden" />
+          <div class="field">
+            <label for="term">Written term <span aria-hidden="true">*</span></label>
+            <input id="term" name="term" required maxlength="80" autocomplete="off" spellcheck="false" />
+            <p class="hint">The exact word or phrase that appears on the page.</p>
+          </div>
+          <div class="field">
+            <label for="alias">Say it like <span aria-hidden="true">*</span></label>
+            <input id="alias" name="alias" required maxlength="160" autocomplete="off" placeholder="for example, cue-burr-NET-eez" />
+            <p class="hint">Plain spelling works with the browser’s installed voices.</p>
+          </div>
+          <details>
+            <summary>IPA and notes</summary>
+            <div class="field">
+              <label for="ipa">IPA pronunciation</label>
+              <input id="ipa" name="ipa" maxlength="120" class="mono" autocomplete="off" placeholder="ˌkuːbərˈnɛtiːz" />
+              <p class="hint">Used in copied SSML; browser preview uses the alias above.</p>
+            </div>
+            <div class="field">
+              <label for="notes">Private note</label>
+              <textarea id="notes" name="notes" maxlength="500" rows="2"></textarea>
+            </div>
+          </details>
+
+          <div class="voice-row">
+            <div class="field">
+              <label for="voice">Preview voice</label>
+              <select id="voice"><option value="">System default</option></select>
+            </div>
+            <div class="field rate-field">
+              <label for="rate">Rate <output id="rate-output" for="rate">0.9×</output></label>
+              <input id="rate" type="range" min="0.5" max="1.5" step="0.1" value="0.9" />
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="secondary" id="preview" type="button">Preview sound</button>
+            <button class="primary" id="save-card" type="submit">Save card</button>
+          </div>
+          <button class="text-button" id="read-selection" type="button" hidden>Read the full page selection</button>
+        </form>
+      </section>
+
+      <section id="cards-panel" role="tabpanel" aria-labelledby="cards-tab" hidden>
+        <div class="field search-field">
+          <label for="search">Find a card</label>
+          <input id="search" type="search" autocomplete="off" placeholder="Search terms and pronunciations" />
+        </div>
+        <div id="empty-cards" class="empty-state">
+          <span class="empty-mark" aria-hidden="true">Aa → /a/</span>
+          <h2>Your first card starts with a term</h2>
+          <p>Select a word on a page or add one in the editor. Everything stays in this browser.</p>
+          <button class="primary" type="button" data-open-editor>Add a card</button>
+        </div>
+        <p id="empty-search" class="empty-state" hidden>No cards match that search. Try a shorter term.</p>
+        <ul id="card-list" class="card-list" aria-label="Saved pronunciation cards"></ul>
+      </section>
+
+      <section id="portable-panel" role="tabpanel" aria-labelledby="portable-tab" hidden>
+        <div class="portable-intro">
+          <p class="eyebrow">Take the metadata with you</p>
+          <h2>Import or export your glossary</h2>
+          <p>JSON files stay readable and can be shared with a team. No upload is involved.</p>
+        </div>
+        <button id="export" class="primary full" type="button">Export JSON</button>
+        <hr />
+        <div class="field">
+          <label for="import-file">Choose a glossary file</label>
+          <input id="import-file" type="file" accept="application/json,.json" />
+        </div>
+        <div class="field">
+          <label for="import-json">Or paste glossary JSON</label>
+          <textarea id="import-json" rows="6" class="mono" spellcheck="false"></textarea>
+        </div>
+        <fieldset>
+          <legend>When a term already exists</legend>
+          <label class="choice"><input type="radio" name="import-mode" value="merge" checked /> Replace that term only</label>
+          <label class="choice"><input type="radio" name="import-mode" value="replace" /> Replace my whole glossary</label>
+        </fieldset>
+        <button id="import" class="secondary full" type="button">Import JSON</button>
+        <p class="support-note"><strong>SSML note:</strong> copied cards use standard <code>&lt;sub&gt;</code> or IPA <code>&lt;phoneme&gt;</code> markup, but support varies by reader. The extension never changes screen-reader settings.</p>
+      </section>
+    </main>
+
+    <div id="undo-wrap" class="undo" hidden>
+      <span id="undo-message"></span>
+      <button id="undo" type="button">Undo</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <dialog id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description">
+      <form method="dialog">
+        <p class="eyebrow">Remove card</p>
+        <h2 id="delete-title">Delete this pronunciation?</h2>
+        <p id="delete-description"></p>
+        <div class="action-row">
+          <button value="cancel" class="secondary">Keep card</button>
+          <button value="confirm" class="danger">Delete card</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
