@@ -17,6 +17,8 @@ for (const path of ['/', '/privacy/', '/terms/']) {
 }
 
 test('home works at 390px and exposes the complete install path', async ({ page }) => {
+  const runtimeRequests: string[] = [];
+  page.on('request', (request) => runtimeRequests.push(request.url()));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('technical words');
@@ -25,6 +27,9 @@ test('home works at 390px and exposes the complete install path', async ({ page 
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#main$/);
+  expect(runtimeRequests.every((url) => new URL(url).origin === 'http://127.0.0.1:4173')).toBe(true);
 
   for (const target of [
     page.getByRole('link', { name: 'Pronunciation Cards home' }).first(),
@@ -49,10 +54,24 @@ test('download artifact and offline state are available', async ({ page, request
   const avif = await request.get('/assets/pronunciation-cards-hero-960.avif');
   expect(avif.headers()['content-type']).toContain('image/avif');
   await page.goto('/');
-  await context.setOffline(true);
-  await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-  await expect(page.getByText(/You’re offline/)).toBeVisible();
-  await context.setOffline(false);
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  if (!await page.evaluate(() => Boolean(navigator.serviceWorker.controller))) await page.reload();
+  try {
+    await context.setOffline(true);
+    await page.evaluate(() => window.dispatchEvent(new Event('offline')));
+    await expect(page.getByText(/You’re offline/)).toBeVisible();
+    await page.reload();
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('technical words');
+  } finally {
+    await context.setOffline(false);
+  }
+});
+
+test('reduced motion removes the hero entrance movement', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const duration = await page.locator('.hero-copy').evaluate((element) => getComputedStyle(element).animationDuration);
+  expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.001);
 });
 
 test('controlled clients bypass stale page and download cache entries', async ({ page }) => {

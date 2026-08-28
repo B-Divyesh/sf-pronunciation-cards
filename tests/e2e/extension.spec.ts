@@ -18,11 +18,16 @@ test('extension popup saves, searches, and exports a real card', async () => {
     const consoleErrors: string[] = [];
     page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
     await page.goto(`chrome-extension://${extensionId}/popup.html`);
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('link', { name: 'Skip to editor' })).toBeFocused();
     await page.getByLabel('Written term').fill('Kubernetes');
     await page.getByLabel('Say it like').fill('cue burr NET eez');
     await page.getByRole('button', { name: 'Save card' }).click();
     await expect(page.locator('#status')).toContainText('Saved');
-    await page.getByRole('tab', { name: /Cards/ }).click();
+    await page.getByRole('tab', { name: 'New card' }).focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByRole('tab', { name: /Cards/ })).toBeFocused();
+    await expect(page.getByRole('tab', { name: /Cards/ })).toHaveAttribute('aria-selected', 'true');
     await expect(page.getByRole('heading', { name: 'Kubernetes' })).toBeVisible();
     await page.getByLabel('Find a card').fill('not here');
     await expect(page.getByText(/No cards match/)).toBeVisible();
