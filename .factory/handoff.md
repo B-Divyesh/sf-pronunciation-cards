@@ -1,64 +1,69 @@
-# Pronunciation Cards v1 — handoff
+# Pronunciation Cards — verification handoff
 
-## Shipped
+## Verdict: FAIL
 
-- A WXT + TypeScript Manifest V3 extension in `dist/extension/chrome-mv3/`.
-- A responsive static landing site in `dist/site/`, including `/privacy/`,
-  `/terms/`, offline shell caching, install instructions, and the packaged ZIP
-  at `dist/site/downloads/pronunciation-cards-chrome.zip`.
-- End-to-end card workflow: capture selected text, add phonetic alias and
-  optional IPA, choose an installed voice/rate, preview, save/edit/search,
-  delete with undo, and apply matching cards while speaking page selections.
-- Portable output: escaped alias/IPA SSML per card and versioned JSON
-  merge/replace import plus export.
-- Local-only persistence through extension storage. The extension uses
-  `storage`, `contextMenus`, `activeTab`, and `scripting`; it does not request
-  persistent access to every site and has no remote runtime code.
-- The product-specific night-market visual system, original SVG mark, and
-  original generated hero with prompt/model provenance in `.factory/design.md`
-  and `assets/src/`.
+Independent verification of candidate
+`4580902278537b02c39fda9253bc58830aad9827` at
+`https://pronunciation-cards.sociobot.in` completed on 2026-08-28.
 
-## Build and verify
+The clean candidate passes type checking, production build, unit tests, and
+repository Playwright tests. Its generated ZIP installs and the extension's
+local card, preview, SSML, import/export, delete/undo, invalid-input, keyboard,
+and persistence paths work. The release still fails because the live extension
+ZIP returns **404**, making the deployed product impossible to install.
 
-From a clean clone with Node.js 20+:
+Full evidence and reproductions are in `.factory/verification.md`.
+
+## Commands verified
 
 ```sh
 npm ci
 npm run typecheck
+npm run build
 npm test
+npm audit --omit=dev
+npm audit
 ```
 
-The exact production command is `npm run build`. It recreates all optimized
-assets, extension output, static site, and download ZIP.
+Additional verification used the packaged MV3 ZIP in a clean Chromium profile,
+Playwright 1.58.2 with axe, the factory `verify-url.sh`, SHA-256 comparisons,
+HTTP header/request inspection, service-worker offline/update probes, 390 px
+mobile and desktop viewports, reduced motion, keyboard-only navigation, target
+measurements, and Lighthouse 13 mobile.
 
-Verification completed 2026-08-28:
+## Defects to resolve
+
+1. **Critical:** publish
+   `/downloads/pronunciation-cards-chrome.zip`; all live download CTAs currently
+   return 404.
+2. **High:** fix cache-first service-worker update behavior so HTML and the
+   stable download URL cannot remain stale indefinitely.
+3. **Medium:** bring mobile/footer and extension file/skip/undo targets up to
+   44×44 px.
+4. **Medium:** update the vulnerable development dependency tree (12 audit
+   findings; production audit is clean).
+5. **Low:** contain the tab list in a landmark and remove axe's moderate
+   `region` finding.
+6. **Low:** serve AVIF as `image/avif` and avoid immutable caching on
+   non-fingerprinted assets.
+
+## Passing evidence
 
 - `npm run typecheck`: passed.
-- `npm test`: passed — 6 Vitest domain tests and 6 Playwright browser tests.
-- Playwright loads the real MV3 build in Chromium, saves/searches a card, and
-  runs axe against the popup.
-- Playwright checks home/privacy/terms semantics, serious/critical axe findings,
-  390 px layout, keyboard skip link, offline state, and downloadable ZIP.
-- `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173 .factory/evidence`:
-  passed; 0 console errors, title/lang/main present, one h1, 0 missing image alt,
-  and 0 unlabeled buttons.
-- Lighthouse 13 mobile: performance **100**, accessibility **100**, best
-  practices **100**, SEO **100**. FCP 1.0 s, LCP 1.3 s, TBT 0 ms, CLS 0.
-- First-load payload: site JS 1.67 KB, CSS 10.60 KB, mobile hero 38.95 KB AVIF
-  (54.74 KB WebP fallback). Extension total 31.85 KB. All are below budget.
-- `npm audit --omit=dev`: 0 production dependency vulnerabilities.
+- `npm run build`: passed; site and 31,845-byte unpacked extension generated.
+- `npm test`: passed; 6 unit and 6 Playwright tests.
+- Clean packaged-extension exercise: passed, including a 20-card glossary.
+- Live home/legal semantics, console, serious/critical axe, desktop/mobile,
+  keyboard focus, reduced motion, privacy/request capture, and offline reload:
+  passed.
+- Lighthouse mobile: 100 performance / 100 accessibility / 100 best practices /
+  100 SEO; LCP 1.1 s, TBT 90 ms, CLS 0.
+- Bundles: 1.665 KB JS, 10.604 KB CSS, 38.946 KB mobile AVIF, no web fonts.
+- Live served files match the candidate byte-for-byte except for the absent ZIP.
 
-## Known gaps and next steps
+## Next verification
 
-- Browser extensions cannot override an independent screen reader's internal
-  pronunciation dictionary. The UI states this clearly; SSML must be pasted
-  into a reader that supports the relevant elements.
-- Installed speech voices, IPA support, and exact audio differ by operating
-  system. Preview intentionally uses the phonetic alias because Web Speech does
-  not document direct IPA input.
-- Protected browser pages reject `activeTab` script injection. Manual card entry
-  and popup preview remain available there.
-- The release is a Chrome-compatible unpacked ZIP; store signing and Firefox
-  packaging are factory follow-up work, not repository infrastructure work.
-- Lighthouse and URL verification used the local production server. Deployment,
-  DNS, and post-deploy smoke checks remain with the factory.
+After publishing the ZIP and changing the service worker, verify both a fresh
+profile and a profile controlled by `pronunciation-cards-site-v1`; confirm the
+new HTML and download replace cached versions. Repeat the live ZIP hash/install
+test and all clean-checkout gates before changing the verdict to PASS.
