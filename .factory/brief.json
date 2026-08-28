@@ -1,0 +1,30 @@
+{
+  "slug": "pronunciation-cards",
+  "title": "Pronunciation Cards",
+  "territory": "utilities",
+  "user": "Blind and low-vision screen-reader users reading technical material who need unfamiliar acronyms and names pronounced predictably in context.",
+  "evidence": [
+    {
+      "url": "https://hn.algolia.com/api/v1/items/46458568",
+      "date": "2026-01-01",
+      "quote_or_summary": "The Ask HN discussion about bad Apple transcription highlights that software jargon is common to a user but uncommon to a general speech system."
+    },
+    {
+      "url": "https://github.com/MicrosoftEdge/DevTools/issues/458",
+      "date": "2026-08-27",
+      "quote_or_summary": "The requester proposes IPA pronunciation support in Edge Read Aloud specifically to improve accessibility for blind or visually impaired readers."
+    }
+  ],
+  "recurrence": "Both reports expose a general-language model mismatch with personal and technical vocabulary; wrong pronunciation makes audio reading slower and harder to trust.",
+  "current_workaround": "Spell terms manually, add ad-hoc pronunciation exceptions in one application, or switch to visual reading.",
+  "incumbents_and_gap": "Edge Read Aloud and screen readers have dictionaries, but exceptions are app-specific and difficult to share with a document or team glossary.",
+  "smallest_useful_product": "A local browser extension that detects user-selected terms, offers IPA/phonetic aliases and an audio preview, then applies the pronunciation via supported speech APIs or a copyable SSML reading card.",
+  "success_measure": "Users configure 20 terms and report correct pronunciation for 90% of those terms across three supported reading surfaces.",
+  "artifact_class": "browser-extension",
+  "monetization": "free",
+  "constraints": "Use only documented browser speech capabilities; do not promise all screen readers accept injected pronunciation; keep glossaries local/exportable.",
+  "est_build_effort": "M",
+  "why_distinct": "It treats pronunciation exceptions as portable reading metadata, rather than building another TTS engine.",
+  "confidence": 3,
+  "state": "RESEARCHED"
+}

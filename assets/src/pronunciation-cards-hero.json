@@ -1,0 +1,8 @@
+{
+  "generator": "/opt/fleet/lib/gen-image.sh",
+  "deployment": "factory-image",
+  "date": "2026-08-28",
+  "size": "1536x1024",
+  "quality": "medium",
+  "prompt": "Use case: stylized-concept. Asset type: landing-page hero illustration. Scene/backdrop: a dark indigo night-market counter beneath overlapping abstract fabric awnings. Subject: a small fan of cream index cards with ruled markings represented only as abstract embossed strokes. Style/medium: polished editorial still-life illustration with tactile uncoated paper, ink-blue lacquer, translucent acrylic neon tubes, and subtle rain speckles. Composition/framing: wide 3:2 landscape, close 50 mm lens, cards centered-right, generous quiet dark space, clean outer edges. Lighting/mood: cyan rim light, warm amber key light, one very small magenta reflection, calm and precise, restrained bloom. Color palette: ink navy, warm paper, lantern yellow, electric cyan, orchid. Constraints: no people, no hands, no faces, no letters, no readable text, no logos, no brands, no watermark, no user interface, no microphones, no headphones, no floating objects, no excessive bloom, no cyberpunk city, no generic gradient."
+}

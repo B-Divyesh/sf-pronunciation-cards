@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Pronunciation Cards mark</title>
+  <desc id="desc">Three overlapping cards with a sound wave</desc>
+  <rect width="128" height="128" rx="26" fill="#07111f"/>
+  <path d="M28 36h66a10 10 0 0 1 10 10v51H38a10 10 0 0 1-10-10Z" fill="#52e5e7" opacity=".35"/>
+  <path d="M20 29h66a10 10 0 0 1 10 10v51H30a10 10 0 0 1-10-10Z" fill="#fff8e7" stroke="#ffd166" stroke-width="4"/>
+  <path d="M36 62h8m8-10v20m8-29v38m8-26v14m8-23v32" fill="none" stroke="#07111f" stroke-width="6" stroke-linecap="round"/>
+</svg>
