@@ -48,5 +48,11 @@ if (/immutable/i.test(assetRoute?.headers?.['Cache-Control'] ?? '')) {
 if (!/no-cache/i.test(downloadRoute?.headers?.['Cache-Control'] ?? '')) {
   throw new Error('The stable release ZIP URL must revalidate on every use.');
 }
+if (deployment.responseOverrides?.['404']?.rewrite !== '/404.html') {
+  throw new Error('Deployment must serve the designed 404 page for unknown routes.');
+}
+await stat(resolve(root, 'dist/site/demo/index.html'));
+await stat(resolve(root, 'dist/site/404.html'));
+await stat(resolve(root, 'dist/site/assets/pronunciation-cards-social.webp'));
 
 console.log(`Verified ${archive.byteLength}-byte release ZIP with ${expected.size} byte-identical extension files.`);

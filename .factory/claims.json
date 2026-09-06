@@ -1,0 +1,86 @@
+[
+  {
+    "id": "demo-isolation",
+    "claim": "Try it with sample data opens a populated sample glossary without changing real browser data.",
+    "where": "Landing first screen; /demo",
+    "test": "npm run test:claims -- --grep @claim:demo-isolation",
+    "sandbox": "Fresh browser context; click the landing action; verify four sample cards, transformed reading output, and separate demo storage."
+  },
+  {
+    "id": "demo-reset",
+    "claim": "Reset demo restores the shipped sample after a sample change.",
+    "where": "/demo banner",
+    "test": "npm run test:claims -- --grep @claim:demo-reset",
+    "sandbox": "Fresh demo; remove ngrok; reset; verify it is restored."
+  },
+  {
+    "id": "browser-preview",
+    "claim": "A saved spoken form can be previewed with the browser speech API.",
+    "where": "Landing compatibility section; README",
+    "test": "npm run test:claims -- --grep @claim:browser-preview",
+    "sandbox": "Fresh demo with a recorded browser speech fixture; preview Kubernetes and inspect the spoken value."
+  },
+  {
+    "id": "selected-text",
+    "claim": "Saved aliases change matching selected text without changing parts of other words.",
+    "where": "Landing compatibility section; README; Terms",
+    "test": "npm run test:unit -- --testNamePattern @claim:selected-text",
+    "sandbox": "Shipped cards and a technical sentence; assert overlapping, case-insensitive, punctuation, and inside-word outcomes."
+  },
+  {
+    "id": "ssml-copy",
+    "claim": "A sample card can produce copyable SSML.",
+    "where": "Landing compatibility section; README",
+    "test": "npm run test:claims -- --grep @claim:ssml-copy",
+    "sandbox": "Fresh demo with a clipboard fixture; copy Kubernetes SSML and inspect the result."
+  },
+  {
+    "id": "json-export",
+    "claim": "A glossary can be exported as readable JSON.",
+    "where": "Landing privacy section; README",
+    "test": "npm run test:claims -- --grep @claim:json-export",
+    "sandbox": "Fresh demo; export the sample and parse the downloaded JSON."
+  },
+  {
+    "id": "private-demo",
+    "claim": "The website and sample use no cookies or third-party requests; the sample uses a separate browser-storage key.",
+    "where": "/demo banner; Privacy; README",
+    "test": "npm run test:claims -- --grep @claim:private-demo",
+    "sandbox": "Fresh landing and demo; record every request and inspect storage and cookies after reading the sample."
+  },
+  {
+    "id": "offline-demo",
+    "claim": "The demo reloads offline after its first visit.",
+    "where": "README",
+    "test": "npm run test:claims -- --grep @claim:offline-demo",
+    "sandbox": "Dedicated browser context; visit /demo, wait for the service worker, set offline, and reload."
+  },
+  {
+    "id": "extension-local-storage",
+    "claim": "The packaged extension saves a pronunciation card in browser extension storage without a network request during the card flow.",
+    "where": "Landing privacy section; Privacy; README",
+    "test": "npm run test:claims -- --grep @claim:extension-local-storage",
+    "sandbox": "Launch the built MV3 package in a fresh Chromium profile; save Docker, inspect extension storage, and record requests."
+  },
+  {
+    "id": "json-import",
+    "claim": "The packaged extension can merge imported JSON or replace its glossary.",
+    "where": "Landing privacy section; README",
+    "test": "npm run test:claims -- --grep @claim:json-import",
+    "sandbox": "Launch the built MV3 package in a fresh Chromium profile; merge two cards, then replace them with an empty glossary."
+  },
+  {
+    "id": "explicit-permissions",
+    "claim": "The packaged extension has no persistent all-sites host permission.",
+    "where": "Privacy; README",
+    "test": "npm run test:claims -- --grep @claim:explicit-permissions",
+    "sandbox": "Inspect the manifest in the built MV3 package and verify its action-scoped permissions and empty host permissions."
+  },
+  {
+    "id": "free-download",
+    "claim": "The extension ZIP is available without an account.",
+    "where": "Landing first screen and install section; README",
+    "test": "npm run test:claims -- --grep @claim:free-download",
+    "sandbox": "Fresh request context; download the linked ZIP and verify its ZIP signature, type, and minimum package size."
+  }
+]

@@ -83,7 +83,9 @@ status copy retain the same hierarchy.
 - Hero: one generated editorial still of blank paper pronunciation cards beneath
   abstract neon awnings. It communicates portable reading metadata without
   depicting a capability the extension does not have. Shipped as responsive
-  WebP/AVIF with a PNG source retained in `assets/src/`.
+  WebP/AVIF with a PNG source retained in `assets/src/`. A 1200×630 WebP social
+  preview is a crop of this same original image; no additional generated image
+  was introduced for sharing metadata.
 
 ### Prompt sheet
 

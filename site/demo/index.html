@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" class="demo-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="Try a populated Pronunciation Cards glossary without changing your real extension data." />
+    <link rel="canonical" href="https://pronunciation-cards.sociobot.in/demo/" />
+    <link rel="icon" href="/assets/product-mark.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Demo — Pronunciation Cards" />
+    <meta property="og:description" content="Try a populated local pronunciation glossary." />
+    <meta property="og:url" content="https://pronunciation-cards.sociobot.in/demo/" />
+    <meta property="og:image" content="https://pronunciation-cards.sociobot.in/assets/pronunciation-cards-social.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Demo — Pronunciation Cards" />
+    <meta name="twitter:description" content="Try a populated local pronunciation glossary." />
+    <meta name="twitter:image" content="https://pronunciation-cards.sociobot.in/assets/pronunciation-cards-social.webp" />
+    <title>Demo — Pronunciation Cards</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to demo</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Pronunciation Cards home"><img src="/assets/product-mark.svg" width="40" height="40" alt="" /><span>Pronunciation Cards</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="/demo/" aria-current="page">Demo</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/privacy/">Privacy</a>
+        <a class="nav-download" href="/downloads/pronunciation-cards-chrome.zip" download>Download</a>
+      </nav>
+    </header>
+
+    <aside class="demo-banner" aria-label="Demo controls">
+      <p><strong>Demo — sample data, nothing is saved to your real glossary.</strong> This sample uses its own browser-storage key.</p>
+      <div><button id="reset-demo" class="text-button" type="button">Reset demo</button><a id="start-real" class="text-button" href="/#install">Start for real</a></div>
+    </aside>
+
+    <main id="main" class="demo-main">
+      <section class="demo-intro" aria-labelledby="demo-title">
+        <p class="eyebrow">Sample glossary</p>
+        <h1 id="demo-title">Try a sample technical glossary</h1>
+        <p>Four saved pronunciations change a realistic technical sentence before a browser voice reads it.</p>
+      </section>
+
+      <section class="demo-reader" aria-labelledby="reader-title">
+        <div>
+          <p class="eyebrow">Reading preview</p>
+          <h2 id="reader-title">Read a technical sentence with saved forms</h2>
+          <p class="demo-written"><strong>Written text</strong> Kubernetes services use OAuth with PostgreSQL.</p>
+          <p class="demo-spoken"><strong>Browser will read</strong> <output id="spoken-output">cue burr NET eez services use oh auth with POST gres cue ell.</output></p>
+          <button id="read-sample" class="button primary" type="button">Read with saved forms</button>
+          <p id="demo-status" class="demo-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="demo-reader-note"><strong>Sample cards</strong><span id="demo-card-count">4</span><p>Use Preview or Copy SSML on any card below.</p></div>
+      </section>
+
+      <section class="demo-cards-section" aria-labelledby="cards-title">
+        <div class="demo-section-heading"><div><p class="eyebrow">Saved cards</p><h2 id="cards-title">Pronunciations in this sample</h2></div><button id="export-demo" class="button secondary" type="button">Export sample JSON</button></div>
+        <ul id="demo-card-list" class="demo-card-list" aria-label="Sample pronunciation cards">
+          <li class="demo-card"><div><h3>Kubernetes</h3><p class="demo-alias">Say: cue burr NET eez</p><p class="demo-ipa">IPA: /ˌkuːbərˈnɛtiːz/</p><p class="demo-note">Container orchestration platform</p></div><div class="demo-card-actions"><button type="button" aria-label="Preview Kubernetes" disabled>Preview</button><button type="button" aria-label="Copy SSML for Kubernetes" disabled>Copy SSML</button><button type="button" class="danger-text" aria-label="Remove Kubernetes from the sample" disabled>Remove sample card</button></div></li>
+          <li class="demo-card"><div><h3>OAuth</h3><p class="demo-alias">Say: oh auth</p><p class="demo-ipa">IPA: /oʊ ɔːθ/</p><p class="demo-note">Authorization protocol</p></div><div class="demo-card-actions"><button type="button" aria-label="Preview OAuth" disabled>Preview</button><button type="button" aria-label="Copy SSML for OAuth" disabled>Copy SSML</button><button type="button" class="danger-text" aria-label="Remove OAuth from the sample" disabled>Remove sample card</button></div></li>
+          <li class="demo-card"><div><h3>PostgreSQL</h3><p class="demo-alias">Say: POST gres cue ell</p><p class="demo-ipa">IPA: /ˈpoʊstɡrɛs kjuː ɛl/</p><p class="demo-note">Database name</p></div><div class="demo-card-actions"><button type="button" aria-label="Preview PostgreSQL" disabled>Preview</button><button type="button" aria-label="Copy SSML for PostgreSQL" disabled>Copy SSML</button><button type="button" class="danger-text" aria-label="Remove PostgreSQL from the sample" disabled>Remove sample card</button></div></li>
+          <li class="demo-card"><div><h3>ngrok</h3><p class="demo-alias">Say: en grok</p><p class="demo-ipa">IPA: /ɛn ɡrɒk/</p><p class="demo-note">Secure tunnel tool</p></div><div class="demo-card-actions"><button type="button" aria-label="Preview ngrok" disabled>Preview</button><button type="button" aria-label="Copy SSML for ngrok" disabled>Copy SSML</button><button type="button" class="danger-text" aria-label="Remove ngrok from the sample" disabled>Remove sample card</button></div></li>
+        </ul>
+      </section>
+    </main>
+
+    <div id="demo-undo" class="demo-undo" hidden><span id="demo-undo-message"></span><button id="undo-demo" type="button">Undo</button></div>
+    <footer>
+      <a class="brand" href="/"><img src="/assets/product-mark.svg" width="32" height="32" alt="" /><span>Pronunciation Cards</span></a>
+      <p>Local pronunciation cards for predictable technical reading.</p>
+      <nav aria-label="Footer"><a href="/demo/" aria-current="page">Demo</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+      <p class="build-id">Built by Param Factory · v1.0.1</p>
+    </footer>
+    <script type="module" src="/demo.ts"></script>
+  </body>
+</html>

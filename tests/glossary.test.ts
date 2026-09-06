@@ -16,7 +16,7 @@ describe('pronunciation cards', () => {
     expect(validateCardInput({ term: 'x'.repeat(81), alias: 'x' })).toContain('Term is too long.');
   });
 
-  it('applies longer terms first, case-insensitively, without matching inside words', () => {
+  it('@claim:selected-text applies saved aliases without changing parts of other words', () => {
     const cards = [
       createCard({ term: 'API', alias: 'A P I' }, 'api', now),
       createCard({ term: 'API Gateway', alias: 'A P I gate way' }, 'gateway', now),

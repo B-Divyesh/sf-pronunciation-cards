@@ -1,0 +1,1 @@
+Save spoken forms for technical terms in a local browser glossary.

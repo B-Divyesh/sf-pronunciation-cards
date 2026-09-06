@@ -1,83 +1,76 @@
 # Pronunciation Cards
 
-Pronunciation Cards is a local-first Chrome-compatible browser extension for
-blind and low-vision readers who encounter technical terms, acronyms, and names
-that speech software says unpredictably.
+Pronunciation Cards is a local Chrome-compatible browser extension for blind
+and low-vision screen-reader users who need technical names read predictably.
 
-Select a term on a web page, write the pronunciation you want, preview it with
-an installed browser voice, and save it as a reusable card. The extension can
-then read selected web text with matching aliases applied, copy standards-based
-SSML, and import or export the glossary as plain JSON.
+Use the [sample glossary](https://pronunciation-cards.sociobot.in/demo/) before
+installing. It opens with four technical terms, a reading preview, SSML, JSON
+export, Reset demo, and Start for real. Demo data uses its own browser-storage
+key and does not change extension data.
 
-Live site: <https://pronunciation-cards.sociobot.in>
+## What it does
 
-## What v1 does
+- Saves a written term, spoken alias, optional IPA, and private note in browser
+  extension storage.
+- Previews the alias with the browser speech API.
+- Applies saved aliases to matching selected text without changing parts of
+  other words.
+- Copies SSML from a card for a reading tool that supports the markup.
+- Exports readable JSON and imports it by merging terms or replacing a
+  glossary.
+- Requires no account. The extension ZIP is free to download.
+- Requests page access only after an explicit extension action. It has no
+  persistent all-sites host permission.
 
-- Captures the current page selection after an explicit extension action.
-- Stores phonetic aliases, optional IPA, and private notes locally.
-- Previews aliases with the browser's documented Web Speech API.
-- Reads selected web text after applying every matching local card.
-- Copies `<sub>` or IPA `<phoneme>` SSML for use in compatible tools.
-- Searches, edits, deletes with undo, and imports/exports versioned JSON.
-- Works without an account, analytics, cloud TTS, or a network connection.
+The demo reloads with its populated sample after its first visit while offline.
+The website and demo use no cookies or third-party runtime requests. See
+[Privacy](https://pronunciation-cards.sociobot.in/privacy/) and
+[Terms](https://pronunciation-cards.sociobot.in/terms/).
 
-It does **not** modify the dictionary inside an independent screen reader.
-Protected browser pages can also block selection access and speech injection.
-These limitations are stated in the product UI instead of being hidden.
+Check important text in the reading tool where it will be used. Browser voices
+and SSML support can differ between systems.
 
 ## Install a release build
 
 1. Download `pronunciation-cards-chrome.zip` from the website and unzip it.
 2. Open `chrome://extensions` in a Chromium-based browser.
-3. Enable Developer mode, choose **Load unpacked**, and select the unzipped
-   directory containing `manifest.json`.
-4. Pin Pronunciation Cards. Select a term on a normal web page and open it.
+3. Enable Developer mode, choose **Load unpacked**, and select the folder that
+   contains `manifest.json`.
+4. Pin Pronunciation Cards. Select a term on a regular web page and open it.
 
-The extension requests `storage`, `contextMenus`, `activeTab`, and `scripting`.
-The last two only provide page access following an explicit toolbar or
-context-menu action; there is no persistent all-sites permission.
-
-## Develop
+## Develop and verify
 
 Requirements: Node.js 20+ and npm.
 
 ```sh
 npm ci
-npm run dev          # WXT extension development
-npm run dev:site     # landing site development
+npm run lint
 npm run typecheck
-npm test             # unit tests, clean production build, Playwright + axe
-npm run build        # exact production command
+npm test
+npm run build
 ```
 
-`npm run build` writes:
+Run the entire claim suite with `npm run test:claims`. Each public claim and
+its one tagged outcome check is listed in `.factory/claims.json`. Run a single
+claim from a clean checkout with its declared command, for example:
 
-- the unpacked MV3 extension to `dist/extension/chrome-mv3/`;
-- the deployable static site to `dist/site/`;
-- the downloadable build to
-  `dist/site/downloads/pronunciation-cards-chrome.zip`.
+```sh
+npm run test:claims -- --grep @claim:demo-isolation
+```
 
-Deploy `dist/site/` as the static root. `npm run build:site` always repackages
-the extension after Vite clears the site output, so the linked ZIP survives a
-site-only rebuild. The service worker uses fresh network responses for pages
-and downloads, with an offline fallback for previously visited pages.
+`npm run build` writes the unpacked MV3 extension to
+`dist/extension/chrome-mv3/`, the static site to `dist/site/`, and the release
+ZIP to `dist/site/downloads/pronunciation-cards-chrome.zip`. Deploy `dist/site/`
+as the static root.
 
 ## Project layout
 
-- `entrypoints/` — WXT popup and service worker.
-- `lib/` — pure glossary transforms and extension-local persistence.
-- `site/` — Vite landing site, legal pages, and offline shell.
-- `assets/src/` — authored mark and generated hero source/provenance.
-- `tests/` — Vitest domain tests and Playwright/axe browser tests.
-- `.factory/design.md` — palette, typography, interaction, motion, and imagery
-  decisions.
-
-## Privacy and security
-
-Glossaries use `browser.storage.local`. Selection matching and speech happen on
-device. The site ships no analytics, cookies, CDN dependencies, or third-party
-runtime scripts. Exported JSON can contain private notes, so review it before
-sharing. See the full [privacy policy](https://pronunciation-cards.sociobot.in/privacy/).
+- `entrypoints/` — the MV3 popup and service worker.
+- `lib/` — card transforms and extension-local storage.
+- `site/` — landing page, legal pages, demo, and service worker.
+- `tests/` — unit, packaged-extension, browser, accessibility, and claim
+  checks.
+- `.factory/demo.md` — demo data, URL, reset behavior, and storage namespace.
 
 ## License
 
