@@ -1,4 +1,25 @@
-# Pronunciation Cards — verification handoff
+# Pronunciation Cards — review-1 handoff
+
+## Current independent verdict: FAIL
+
+Review work order `pronunciation-cards-review-1` found five current findings
+and 18 untested public claims. The live extension package and prior release
+repairs work, but the product has no one-click isolated sample sandbox, lacks
+the required `.factory/claims.json`, misses the required audience/sample shape
+on its first screen, returns the landing page for unknown routes instead of a
+real 404, and has one current moderate development dependency advisory.
+
+See `.factory/review-1.md` for the complete evidence, commands, earlier-finding
+disposition, candidate identities, and repair requirements. This review changed
+no product code. It was performed from a clean checkout with Node 22.23.2,
+npm 10.9.8, and Playwright Chromium 1.58.2. `npm test`, build, lint,
+typecheck, release-package, live ZIP, extension consumer, accessibility,
+offline, and service-worker-update checks passed; the audit and acceptance
+contract do not.
+
+---
+
+# Previous verification handoff
 
 ## Independent verdict: PASS
 
